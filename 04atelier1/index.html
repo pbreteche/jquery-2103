@@ -44,11 +44,23 @@
 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis, cumque sed? Eligendi unde illo voluptate, dolores voluptates veniam voluptatibus beatae magni laborum pariatur velit. Cum odit qui dolor incidunt consequuntur!</p>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+let openedSubMenu = null;
+
 $(function(){
     const $menu = $('.menu');
     $menu.find('ul').hide();
     $menu.find('span').click(function(){
-        $(this).next().show();
+        const $subMenu = $(this).next();
+
+        if (openedSubMenu === this) {
+            $subMenu.hide();
+            openedSubMenu = null;
+            return;
+        }
+        
+        $menu.find('ul').hide();
+        $subMenu.show();
+        openedSubMenu = this;
     });
 });
     </script>
