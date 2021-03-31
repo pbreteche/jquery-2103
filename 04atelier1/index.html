@@ -9,7 +9,7 @@
     <h1>Atelier</h1>
 
     <nav>
-        <ul>
+        <ul class="menu">
             <li>
                 <span>Entrée</span>
                 <ul>
@@ -35,11 +35,21 @@
             </li>
         </ul>
     </nav>
-
+    <h2>Objectif</h2>
+    <ul>
+        <li>masquer tous les sous-menus</li>
+        <li>afficher le sous-menu associé au clic</li>
+        <li>masquer les autres sous-menus lorsqu'un s'affiche </li>
+    </ul>
+<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veritatis, cumque sed? Eligendi unde illo voluptate, dolores voluptates veniam voluptatibus beatae magni laborum pariatur velit. Cum odit qui dolor incidunt consequuntur!</p>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 $(function(){
-
+    const $menu = $('.menu');
+    $menu.find('ul').hide();
+    $menu.find('span').click(function(){
+        $(this).next().show();
+    });
 });
     </script>
 </body>
