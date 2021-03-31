@@ -54,13 +54,27 @@ $(function(){
 
         if (openedSubMenu === this) {
             $subMenu.hide();
-            openedSubMenu = null;
+            const e = $.Event('menu.close', {
+                target: this,
+            });
+            $(this).trigger(e);
             return;
         }
         
         $menu.find('ul').hide();
         $subMenu.show();
-        openedSubMenu = this;
+        const e = $.Event('menu.open', {
+            target: this,
+        });
+        $(this).trigger(e);
+    });
+
+    $menu.on('menu.open', function(e){
+        openedSubMenu = e.target;
+    });
+
+    $menu.on('menu.close', function(){
+        openedSubMenu = null;
     });
 });
     </script>
