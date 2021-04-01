@@ -7,6 +7,22 @@
 <body>
     <h1>Ajax</h1>
 
+    <!-- exemple d'attaque CSRF triviale -->
+    <img src="http///mabanque.fr/virement?beneficiaire=pierre&montant=1000">
+    <!-- protection de base: aucun changement d'état de l'application suite à une requête GET -->
+
+    <form id="login-form" method="post">
+        <div>
+            <label for="login-username">Identifiant</label>
+            <input type="text" id="login-username" name="login[username]">
+        </div>
+        <div>
+            <label for="login-password">Mot de passe</label>
+            <input type="password" id="login-password" name="login[password]">
+        </div>
+        <button>Se connecter</button>
+    </form>
+
     <div id="main-content1"></div>
     <div id="main-content2"></div>
     <div id="main-content3"></div>
@@ -40,6 +56,19 @@ $(function(){
         </article>`;
 
         $('#main-content3').append($dataToHtml);
+    });
+
+    $('#login-form').submit(function(e) {
+        e.preventDefault();
+
+        $.post({
+            url: 'url-pour-se-connecter',
+            data: JSON.stringify($(this).serializeArray()),
+            contentType: 'text/json',
+            done: function(){
+                // traitement en cas de succès
+            }
+        })
     });
 });
     </script>
