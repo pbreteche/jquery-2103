@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+<body>
+    <h1>Ajax</h1>
+
+    <div id="main-content1"></div>
+    <div id="main-content2"></div>
+    <div id="main-content3"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(function(){
+    // charge en AJAX le document spécifié par l'url
+    // et l'insert via un innerHTML dans les éléments sélectionnés
+    $('#main-content1').load('article/1.html');
+
+    // ici, le document chargé est du HTML (en-tête HTTP "content-type")
+    // il est traité par jQuery comme une chaîne de caractères
+    $.get('article/1.html').done(function(data){
+        $('#main-content2').html(data);
+    });
+
+    // ici, le document chargé est du json
+    // il est transformé par jQuery en objet JS
+    $.get('article/1.json').done(function(data){
+        // paramètre de la fonction $ ett de la syntaxe html
+        // => création d'éléments du DOM
+        const $dataToHtml = $('<article>').append(
+            $('<h1>').text(data.title)
+        ).append(data.body);
+
+        const htmlContent = `<article>
+        <h1>${data.title}</h1>
+        ${data.body}
+        </article>`;
+
+        $('#main-content3').append($dataToHtml);
+    });
+});
+    </script>
+</body>
+</html>
